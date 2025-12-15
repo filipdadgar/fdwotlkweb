@@ -56,5 +56,6 @@ EXPOSE 3000
 ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
+ENV BACKEND_URL "http://host.docker.internal:5277"
 
 CMD ["node", "server.js"]
