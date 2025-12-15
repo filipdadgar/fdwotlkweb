@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: (process.env.BACKEND_URL || 'http://localhost:5277') + '/api/:path*',
+        destination: (process.env.BACKEND_URL || 'http://wotlk-api.dadgar.se:8080') + '/api/:path*',
       },
     ];
   },
