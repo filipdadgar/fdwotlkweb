@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 async function handler(req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
-  const backendUrl = process.env.BACKEND_URL || 'http://localhost:5277';
+  const backendUrl = process.env.BACKEND_URL || 'http://wotlk-api.dadgar.se:8080';
   console.log(`[Proxy] BACKEND_URL: ${backendUrl}`);
   const targetUrl = `${backendUrl}/api/${path.join('/')}${req.nextUrl.search}`;
 
