@@ -5,9 +5,10 @@ export const dynamic = 'force-dynamic';
 async function handler(req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
   const backendUrl = process.env.BACKEND_URL || 'http://localhost:5277';
+  console.log(`[Proxy] BACKEND_URL: ${backendUrl}`);
   const targetUrl = `${backendUrl}/api/${path.join('/')}${req.nextUrl.search}`;
 
-  console.log(`Proxying ${req.method} request to: ${targetUrl}`);
+  console.log(`[Proxy] ${req.method} request to: ${targetUrl}`);
 
   try {
     const headers = new Headers(req.headers);
@@ -16,13 +17,18 @@ async function handler(req: NextRequest, { params }: { params: Promise<{ path: s
 
     const body = req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined;
 
-    const response = await fetch(targetUrl, {
+    const fetchOptions: RequestInit = {
       method: req.method,
       headers: headers,
       body: body,
+    };
+
+    if (body) {
       // @ts-ignore - duplex is needed for Node.js fetch with streaming body
-      duplex: 'half', 
-    });
+      fetchOptions.duplex = 'half';
+    }
+
+    const response = await fetch(targetUrl, fetchOptions);
 
     return new NextResponse(response.body, {
       status: response.status,
