@@ -10,7 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/api/account/server-info')
+    fetch('/api/Account/server-info')
       .then((res) => res.json())
       .then((data) => {
         if (data && data.data) {
@@ -44,7 +44,7 @@ export default function Home() {
     setMessage('');
 
     try {
-      const res = await fetch('/api/account/create', {
+      const res = await fetch('/api/Account/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
