@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [serverInfo, setServerInfo] = useState<any>(null);
@@ -69,7 +70,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-6 relative overflow-hidden">
-      <div className="w-full max-w-md space-y-8 relative z-10">
+      <div className="w-full max-w-3xl space-y-8 relative z-10">
         <div className="text-center space-y-2">
           <h1 className="text-5xl font-serif font-bold tracking-tight text-[#FFD100] drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]" style={{ textShadow: '0 0 10px rgba(255, 209, 0, 0.5)' }}>
             Filip - WotLK
@@ -100,6 +101,23 @@ export default function Home() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Players Page Link */}
+        <div className="bg-[#151515]/90 p-6 rounded-lg border-2 border-[#4a4a4a] shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00C2FF] to-transparent opacity-50"></div>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-serif font-semibold text-[#FFD100] border-b border-[#333] pb-2">Players</h2>
+              <p className="text-sm text-[#a0a0a0] mt-2">View and manage player accounts.</p>
+            </div>
+            <Link
+              href="/players"
+              className="rounded border border-[#FFD100] px-4 py-2 text-sm font-bold text-[#FFD100] bg-[#2a0a0a] hover:bg-[#3a0f0f] transition-colors"
+            >
+              Open list
+            </Link>
+          </div>
         </div>
 
         {/* Account Creation Form */}

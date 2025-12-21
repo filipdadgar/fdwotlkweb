@@ -14,19 +14,19 @@ async function handler(req: NextRequest, { params }: { params: Promise<{ path: s
     const headers = new Headers(req.headers);
     headers.delete('host');
     headers.delete('connection');
+    headers.delete('content-length');
 
-    const body = req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined;
+    let body: BodyInit | undefined;
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      const textBody = await req.text();
+      body = textBody.length ? textBody : undefined;
+    }
 
     const fetchOptions: RequestInit = {
       method: req.method,
-      headers: headers,
-      body: body,
+      headers,
+      body,
     };
-
-    if (body) {
-      // @ts-ignore - duplex is needed for Node.js fetch with streaming body
-      fetchOptions.duplex = 'half';
-    }
 
     const response = await fetch(targetUrl, fetchOptions);
 
